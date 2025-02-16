@@ -1,0 +1,54 @@
+type TransformArgs = 
+ record {
+   context: blob;
+   response: HttpResponsePayload;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type OnThisDay = 
+ record {
+   title: text;
+   wikiLink: text;
+   year: text;
+ };
+type Note = 
+ record {
+   content: text;
+   id: nat;
+   isCompleted: bool;
+ };
+type HttpResponsePayload = 
+ record {
+   body: vec nat8;
+   headers: vec HttpHeader;
+   status: nat;
+ };
+type HttpHeader = 
+ record {
+   name: text;
+   value: text;
+ };
+type DayData = 
+ record {
+   notes: vec Note;
+   onThisDay: opt OnThisDay;
+ };
+type AddNoteResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+service : {
+  addNote: (text, text) -> (AddNoteResult);
+  completeNote: (text, nat) -> ();
+  fetchAndStoreOnThisDay: (text) -> (Result);
+  getDayData: (text) -> (opt DayData) query;
+  getMonthData: (nat, nat) -> (vec record {
+                                     text;
+                                     DayData;
+                                   }) query;
+  transformResponse: (TransformArgs) -> (HttpResponsePayload) query;
+}
