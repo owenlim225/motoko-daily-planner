@@ -1,0 +1,7 @@
+// Version: 1.0.0
+type DayData = {notes : [Note]; onThisDay : ?OnThisDay};
+type Note = {content : Text; id : Nat; isCompleted : Bool};
+type OnThisDay = {title : Text; wikiLink : Text; year : Text};
+actor {
+  stable var dayDataEntries : [(Text, DayData)]
+};
