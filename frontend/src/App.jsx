@@ -197,6 +197,8 @@ const App = () => {
     );
   };
 
+
+
   return (
     <div id="root">
       <h1>Sherwin's daily Planner</h1>
